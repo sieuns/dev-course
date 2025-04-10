@@ -20,4 +20,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_REACT_TASK_APP_845B0 }}
           projectId: react-task-app-845b0
-          entryPoint: "./react-task-app"
+          entryPoint: react-task-app
