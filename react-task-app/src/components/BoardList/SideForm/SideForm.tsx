@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { addLog } from "../../../store/slices/loggerSlice";
 
 type TSideFormProps = {
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
