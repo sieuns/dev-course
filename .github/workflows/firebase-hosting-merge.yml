@@ -6,6 +6,14 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'dev-practice/react-task-app/**'  # 3폴더에서만 변경 사항을 트리거
+      - '!dev-practice/book-store/**'  # 4폴더는 제외
+
+    pull_request:
+      paths:
+        - 'dev-practice/react-task-app/**'  # 3폴더에서만 변경 사항을 트리거
+        - '!dev-practice/book-store/**'  # 4폴더는 제외
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
