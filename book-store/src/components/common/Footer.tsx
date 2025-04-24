@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../../assest/images/logo.png";
+import logo from "../../assets/images/logo.png";
 
 function Footer() {
   return (
@@ -8,7 +8,7 @@ function Footer() {
         <img src={logo} alt="book" />
       </h1>
       <div className="copyright">copyright(c).2025.Book Store.</div>
-    </ FooterStyle>
+    </FooterStyle>
   );
 }
 
