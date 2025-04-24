@@ -9,6 +9,9 @@ import { BookStoreThemeProvider, ThemeContext } from "./context/themeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./components/common/Error";
 import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";
+import Login from "./pages/Login";
+import Books from "./pages/Books";
 
 const router = createBrowserRouter([
   {
@@ -18,32 +21,50 @@ const router = createBrowserRouter([
         <Home />
       </Layout>
     ),
-    errorElement : <Error />
+    errorElement: <Error />,
   },
   {
     path: "/books",
     element: (
       <Layout>
-        <div>도서 목록</div>
+        <Books />
       </Layout>
     ),
-    errorElement : <div>오류가 발생했습니다.</div>
+    errorElement: <div>오류가 발생했습니다.</div>,
   },
   {
     path: "/signup",
     element: (
       <Layout>
-        <Signup/>
+        <Signup />
       </Layout>
     ),
-    errorElement : <div>오류가 발생했습니다.</div>
+    errorElement: <div>오류가 발생했습니다.</div>,
+  },
+  {
+    path: "/reset",
+    element: (
+      <Layout>
+        <ResetPassword />
+      </Layout>
+    ),
+    errorElement: <div>오류가 발생했습니다.</div>,
+  },
+  {
+    path: "/login",
+    element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
+    errorElement: <div>오류가 발생했습니다.</div>,
   },
 ]);
 
 function App() {
   return (
     <BookStoreThemeProvider>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </BookStoreThemeProvider>
   );
 }
