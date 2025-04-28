@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { ButtonScheme, ButtonSize } from "../../style/theme";
-import { Theme } from "../../style/styled";
+import React from "react";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -10,13 +10,23 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
-function Button({ children, size, scheme, disabled, isLoading }: Props) {
+function Button({
+  children,
+  size,
+  scheme,
+  disabled,
+  isLoading,
+  onClick,
+  ...props
+}: Props) {
   return (
     <ButtonStyle
       size={size}
       scheme={scheme}
       disabled={disabled}
       isLoading={isLoading}
+      onClick={onClick}
+      {...props}
     >
       {children}
     </ButtonStyle>
@@ -24,13 +34,13 @@ function Button({ children, size, scheme, disabled, isLoading }: Props) {
 }
 
 const ButtonStyle = styled.button<Omit<Props, "children">>`
-  font-size: ${({ theme, size }) => (theme as Theme).button[size].fontSize};
-  padding: ${({ theme, size }) => (theme as Theme).button[size].padding};
-  color: ${({ theme, scheme }) => (theme as Theme).buttonScheme[scheme].color};
+  font-size: ${({ theme, size }) => theme.button[size].fontSize};
+  padding: ${({ theme, size }) => theme.button[size].padding};
+  color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) =>
-    (theme as Theme).buttonScheme[scheme].backgroundColor};
+    theme.buttonScheme[scheme].backgroundColor};
   border: 0;
-  border-radius: ${({ theme }) => (theme as Theme).borderRadius.default};
+  border-radius: ${({ theme }) => theme.borderRadius.default};
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
   cursor: ${({ disabled }) => (disabled ? "none" : "pointer")};
