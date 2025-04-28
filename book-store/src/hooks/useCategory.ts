@@ -14,7 +14,7 @@ export const useCategory = () => {
         return prev.map((item) => {
           return {
             ...item,
-            isActive: item.id === Number(params.get("category_id")),
+            isActive: item.category_id === Number(params.get("category_id")),
           };
         });
       });
@@ -32,12 +32,13 @@ export const useCategory = () => {
 
   useEffect(() => {
     fetchCategory().then((category) => {
+      console.log("Fetched Categories:", category);
       if (!category) return;
 
       const categoryWithAll = [
         {
-          id: null,
-          name: "전체",
+          category_id: null,
+          category_name: "전체",
         },
         ...category,
       ];
@@ -46,7 +47,9 @@ export const useCategory = () => {
     });
   }, []);
 
-  useEffect(() => {}, [location.search]);
+  useEffect(() => {
+    setActive();
+  }, [location.search]);
 
   return { category };
 };
