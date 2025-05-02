@@ -1,11 +1,7 @@
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
-import { GlobalStyle } from "./style/global";
-import { ThemeProvider } from "styled-components";
-import { getTheme, ThemeName } from "./style/theme";
 import ThemeSwitcher from "./components/header/ThemeSwitcher";
-import { useContext, useState } from "react";
-import { BookStoreThemeProvider, ThemeContext } from "./context/themeContext";
+import { BookStoreThemeProvider } from "./context/themeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./components/common/Error";
 import Signup from "./pages/Signup";
@@ -15,87 +11,66 @@ import Books from "./pages/Books";
 import BookDetail from "./pages/BookDetail";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
+import OrderList from "./pages/OrderList";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./api/queryClient";
 
-const router = createBrowserRouter([
+const routeList = [
   {
     path: "/",
-    element: (
-      <Layout>
-        <Home />
-      </Layout>
-    ),
-    errorElement: <Error />,
+    element: <Home />,
   },
   {
     path: "/books",
-    element: (
-      <Layout>
-        <Books />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <Books />,
   },
   {
     path: "/signup",
-    element: (
-      <Layout>
-        <Signup />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <Signup />,
   },
   {
     path: "/reset",
-    element: (
-      <Layout>
-        <ResetPassword />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <ResetPassword />,
   },
   {
     path: "/login",
-    element: (
-      <Layout>
-        <Login />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <Login />,
   },
   {
     path: "/books/:bookId",
-    element: (
-      <Layout>
-        <BookDetail />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <BookDetail />,
   },
   {
     path: "/cart",
-    element: (
-      <Layout>
-        <Cart />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <Cart />,
   },
   {
     path: "/order",
-    element: (
-      <Layout>
-        <Order />
-      </Layout>
-    ),
-    errorElement: <div>오류가 발생했습니다.</div>,
+    element: <Order />,
   },
-]);
+  {
+    path: "/orderlist",
+    element: <OrderList />,
+  },
+];
+
+const router = createBrowserRouter(
+  routeList.map((item) => {
+    return {
+      ...item,
+      element: <Layout>{item.element}</Layout>,
+      errorElement: <Error />,
+    };
+  })
+);
 
 function App() {
   return (
-    <BookStoreThemeProvider>
-      <RouterProvider router={router} />
-    </BookStoreThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <BookStoreThemeProvider>
+        <RouterProvider router={router} />
+      </BookStoreThemeProvider>
+    </QueryClientProvider>
   );
 }
 
