@@ -1,11 +1,15 @@
 {
 	"Styled Component Template": {
-	  "prefix": "styledcomponent", 
+	  "prefix": "styledcomponent",
 	  "body": [
 		"import { styled } from \"styled-components\";",
 		"",
 		"function ${1:${TM_FILENAME_BASE}}() {",
-		"  return <${1:${TM_FILENAME_BASE}}Style></${1:${TM_FILENAME_BASE}}Style>;",
+		"  return (",
+		"    <${1:${TM_FILENAME_BASE}}Style>",
+		"      <h1>${1:${TM_FILENAME_BASE}}</h1>",
+		"    </${1:${TM_FILENAME_BASE}}Style>",
+		"  );",
 		"}",
 		"",
 		"const ${1:${TM_FILENAME_BASE}}Style = styled.div``;",
