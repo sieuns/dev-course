@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Pagination as IPagination } from "../../models/pagination.model";
 import { LIMIT } from "../../constants/pagination";
 import Button from "../common/Button";
@@ -8,7 +8,6 @@ import { QUERYSTRING } from "../../constants/querystring";
 interface Props {
   pagination: IPagination;
 }
-
 function Pagination({ pagination }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { totalCount, currentPage } = pagination;
@@ -18,7 +17,6 @@ function Pagination({ pagination }: Props) {
     const newSearchParams = new URLSearchParams(searchParams);
 
     newSearchParams.set(QUERYSTRING.PAGE, page.toString());
-
     setSearchParams(newSearchParams);
   };
 
@@ -31,6 +29,7 @@ function Pagination({ pagination }: Props) {
             .map((_, index) => (
               <li>
                 <Button
+                  key={index}
                   size="small"
                   scheme={index + 1 === currentPage ? "primary" : "normal"}
                   onClick={() => handleClickPage(index + 1)}
@@ -49,7 +48,7 @@ const PaginationStyle = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 24px;
+  padding: 24px 0;
 
   ol {
     list-style: none;

@@ -32,7 +32,6 @@ export const useCategory = () => {
 
   useEffect(() => {
     fetchCategory().then((category) => {
-      console.log("Fetched Categories:", category);
       if (!category) return;
 
       const categoryWithAll = [
