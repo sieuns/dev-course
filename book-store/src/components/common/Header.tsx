@@ -3,22 +3,36 @@ import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { useCategory } from "../../hooks/useCategory";
 import { useAuthStore } from "../../store/authStore";
-import { FaSignInAlt, FaUser, FaUserCircle } from "react-icons/fa";
+import {
+  FaAngleRight,
+  FaBars,
+  FaSignInAlt,
+  FaUser,
+  FaUserCircle,
+} from "react-icons/fa";
 import Dropdown from "./Dropdown";
 import ThemeSwitcher from "../header/ThemeSwitcher";
+import { useState } from "react";
 
 function Header() {
   const { category } = useCategory();
   const { isloggedIn, storeLogout } = useAuthStore();
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <HeaderStyle>
+    <HeaderStyle $isOpen={isMobileOpen}>
       <h1 className="logo">
         <Link to="/">
           <img src={logo} alt="book store" />
         </Link>
       </h1>
       <nav className="category">
+        <button
+          className="menu-button"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          {isMobileOpen ? <FaAngleRight /> : <FaBars />}
+        </button>
         <ul>
           {category.map((item) => (
             <li key={item.category_id}>
@@ -75,7 +89,11 @@ function Header() {
   );
 }
 
-const HeaderStyle = styled.header`
+interface HeaderStyleProps {
+  $isOpen: boolean;
+}
+
+const HeaderStyle = styled.header<HeaderStyleProps>`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
@@ -93,6 +111,9 @@ const HeaderStyle = styled.header`
   }
 
   .category {
+    .menu-button {
+      display: none;
+    }
     ul {
       display: flex;
       gap: 32px;
@@ -102,7 +123,6 @@ const HeaderStyle = styled.header`
           font-weight: 600;
           text-decoration: none;
           color: ${({ theme }) => theme.color.text};
-
           &:hover {
             color: ${({ theme }) => theme.color.primary};
           }
@@ -125,17 +145,66 @@ const HeaderStyle = styled.header`
           text-decoration: none;
           display: flex;
           align-items: center;
-          justify-content : center;
-          width : 100%;
+          justify-content: center;
+          width: 100%;
           line-height: 1;
           background: none;
-          border: 0;
+          bordr: 0;
           cursor: pointer;
 
           svg {
             margin-right: 6px;
           }
         }
+      }
+    }
+  }
+
+  @media screen AND ${({ theme }) => theme.mediaQuery.mobile} {
+    height: 52px;
+
+    .logo {
+      padding: 0 0 8 12px;
+
+      img {
+        width: 140px;
+        margin-top: -8px;
+      }
+    }
+
+    .auth {
+      position: absolute;
+      top: 30px;
+      right: 12px;
+    }
+
+    .category {
+      .menu-button {
+        display: flex;
+        position: absolute;
+        top: 32px;
+        right: ${({ $isOpen }) => ($isOpen ? "62%" : "52px")};
+        background: #fff;
+        border: 0;
+        font-size: 1.5rem;
+      }
+
+      ul {
+        position: fixed;
+        top: 0;
+        right: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};
+        width: 60%;
+        height: 100vh;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: right 0.3s ease-in-out;
+
+        margin: 0;
+        padding: 24px;
+        z-index: 1000;
+
+        flex-direction: column;
+        gap: 16px;
       }
     }
   }

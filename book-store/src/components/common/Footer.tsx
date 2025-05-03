@@ -9,7 +9,6 @@ function Footer() {
       </h1>
       <div className="copyright">copyright(c).2025.Book Store.</div>
     </FooterStyle>
-  );
 }
 
 const FooterStyle = styled.footer`
@@ -32,6 +31,11 @@ const FooterStyle = styled.footer`
       font-size: 0.75rem;
       color: ${({ theme }) => theme.color.text};
     }
+  }
+
+  @media screen AND ${({ theme }) => theme.mediaQuery.mobile} {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
