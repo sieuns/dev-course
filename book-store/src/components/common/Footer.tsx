@@ -9,6 +9,7 @@ function Footer() {
       </h1>
       <div className="copyright">copyright(c).2025.Book Store.</div>
     </FooterStyle>
+  );
 }
 
 const FooterStyle = styled.footer`
