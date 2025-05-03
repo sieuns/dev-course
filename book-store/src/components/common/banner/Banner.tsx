@@ -30,14 +30,12 @@ function Banner({ banners }: Props) {
 
   return (
     <BannerStyle>
-      
       <BannerContainerStyle $transFormValue={transFormValue}>
         {banners.map((item, index) => (
-          <BannerItem banner={item} />
+          <BannerItem key={item.id || index} banner={item} />
         ))}
       </BannerContainerStyle>
 
-     
       <BannerButtonStyle>
         <button className="prev" onClick={handlePrev}>
           <FaAngleLeft />
@@ -47,10 +45,10 @@ function Banner({ banners }: Props) {
         </button>
       </BannerButtonStyle>
 
-     
       <BannerIndicatorStyle>
         {banners.map((_, index) => (
           <span
+            key={index}
             className={index === currentIndex ? "active" : ""}
             onClick={() => handleIndicatorClick(index)}
           ></span>
