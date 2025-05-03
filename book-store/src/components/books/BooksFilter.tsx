@@ -8,14 +8,15 @@ function BooksFilter() {
   const { category } = useCategory();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleCategory = (category_id: number | null) => {
+  const handleCategory = (id: number | null) => {
     const newSearchParams = new URLSearchParams(searchParams);
 
-    if (category_id === null) {
+    if (id === null) {
       newSearchParams.delete(QUERYSTRING.CATEGORY_ID);
     } else {
-      newSearchParams.set(QUERYSTRING.CATEGORY_ID, category_id.toString());
+      newSearchParams.set(QUERYSTRING.CATEGORY_ID, id.toString());
     }
+    console.log(id);
 
     setSearchParams(newSearchParams);
   };

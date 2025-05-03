@@ -19,7 +19,7 @@ const bookInfoList = [
     key: "categoryName",
     filter: (book: IBookDetail) => (
       <Link to={`/books?category_id=${book.category_id}`}>
-        {book.categoryName}
+        {book.category_name}
       </Link>
     ),
   },
@@ -54,6 +54,7 @@ const bookInfoList = [
 function BookDetail() {
   const { bookId } = useParams();
   const { book, likeToggle, reviews, addReview } = useBook(bookId);
+
   const [isImgOpen, setIsImgOpen] = useState(false);
 
   if (!book) return null;
