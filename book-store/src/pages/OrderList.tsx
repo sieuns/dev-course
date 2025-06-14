@@ -4,9 +4,16 @@ import { useOrders } from "../hooks/useOrders";
 import { formatDate, formatNumber } from "../utils/format";
 import Button from "../components/common/Button";
 import React from "react";
+import OrderEmpty from "@/components/order/OrderEmpty";
 
 function OrderList() {
   const { orders, selectedItemId, selectOrderItem } = useOrders();
+
+  const isEmpty = !orders || orders.length === 0;
+
+  if (isEmpty) {
+    return <OrderEmpty />;
+  }
 
   return (
     <>
@@ -31,13 +38,14 @@ function OrderList() {
               <React.Fragment key={order.id}>
                 <tr>
                   <td>{order.id}</td>
-                  <td>{formatDate(order.createdAt, "YYYY.MM.DD")}</td>
+                  <td>{formatDate(order.created_at, "YYYY.MM.DD")}</td>
                   <td>{order.address}</td>
                   <td>{order.receiver}</td>
                   <td>{order.contact}</td>
-                  <td>{order.bookTitle}</td>
-                  <td>{order.totalQuantity} 권</td>
-                  <td>{formatNumber(order.totalPrice)} 원</td>
+                  <td>{order.book_title}</td>
+                  <td>{order.total_quantity} 권</td>
+                  <td>{formatNumber(order.total_price)} 원</td>
+
                   <td>
                     <Button
                       size="small"
@@ -79,34 +87,35 @@ function OrderList() {
 }
 
 const OrderListStyle = styled.div`
-    padding: 24px 0 0 0;
-    
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        border-top: 1px solid ${({ theme }) => theme.color.border};
-        border-bottom: 1px solid ${({ theme }) => theme.color.border};
+  padding: 24px 0 0 0;
 
-        th, td {
-            padding: 16px;
-            border-bottom: 1px solid ${({ theme }) => theme.color.border};
-            text-align: center;
-        }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid ${({ theme }) => theme.color.border};
+    border-bottom: 1px solid ${({ theme }) => theme.color.border};
 
-        .detail {
-            margin: 0;
-
-            li {
-                list-style: square;
-                text-align: left;
-                div {
-                    display: flex;
-                    padding: 8px 12px;
-                    gap 8px;
-                }
-            }
-        }
+    th,
+    td {
+      padding: 16px;
+      border-bottom: 1px solid ${({ theme }) => theme.color.border};
+      text-align: center;
     }
+
+    .detail {
+      margin: 0;
+
+      li {
+        list-style: square;
+        text-align: left;
+        div {
+          display: flex;
+          padding: 8px 12px;
+          gap: 8px;
+        }
+      }
+    }
+  }
 `;
 
 export default OrderList;
